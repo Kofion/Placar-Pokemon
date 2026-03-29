@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Student Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#student-section">Cadastrar Aluno</a>
+        <a href="#activity-section">Cadastrar Atividade</a>
+        <a href="#leaderboard-section">Placares</a>
+        <a href="javascript:void(0)" onclick="openModal()">Exportar/Importar</a>
+    </nav>
+    <div id="toast" class="toast"></div>
+
+    <div class="container">
+        <h1>Gerenciador de Alunos Pokémon</h1>
+        
+        <div class="section" id="student-section">
+            <h2 id="studentFormTitle">Cadastrar Aluno</h2>
+            <form id="studentForm">
+                <input type="text" id="studentName" placeholder="Nome do Aluno" maxlength="50" required>
+                <input type="text" id="studentReg" placeholder="Matrícula (7 dígitos)" pattern="\d{7}" maxlength="7" required>
+                <select id="studentPokemon" required>
+                    <option value="">Escolher Pokémon</option>
+                    <option value="bulbasaur">Bulbasaur</option>
+                    <option value="charmander">Charmander</option>
+                    <option value="squirtle">Squirtle</option>
+                </select>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+        
+        <div class="section" id="students-section">
+            <h2>Lista de Alunos</h2>
+            <input type="text" id="studentSearch" placeholder="Buscar por nome ou matrícula" class="search-input">
+            <div id="studentsList" class="scrollable-list"></div>
+        </div>
+        
+        <div class="section" id="activity-section">
+            <h2>Cadastrar Atividade</h2>
+            <form id="activityForm">
+                <input type="text" id="activityName" placeholder="Nome da Atividade" maxlength="75" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+        
+        <div class="section" id="activities-section">
+            <h2>Lista de Atividades</h2>
+            <div id="activitiesList" class="scrollable-list"></div>
+        </div>
+        
+        <div class="section" id="leaderboard-section">
+            <h2>Placar Geral - Top 3 Alunos</h2>
+            <div id="leaderboard"></div>
+        </div>
+        
+        <div class="section">
+            <h3>Top 3 Bulbasaur</h3>
+            <div id="topBulbasaur"></div>
+        </div>
+        
+        <div class="section">
+            <h3>Top 3 Charmander</h3>
+            <div id="topCharmander"></div>
+        </div>
+        
+        <div class="section">
+            <h3>Top 3 Squirtle</h3>
+            <div id="topSquirtle"></div>
+        </div>
+    </div>
+
+    <!-- MODAL DE EXPORTAR/IMPORTAR -->
+    <div id="exportImportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Exportar / Importar Dados</h2>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-section">
+                    <h3>Exportar CSV</h3>
+                    <p>Baixe seus dados em formato CSV</p>
+                    <button id="exportBtn" class="btn-primary">Baixar CSV</button>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="import-section">
+                    <h3>Importar CSV</h3>
+                    <p>Carregue um arquivo CSV ou arraste para cá</p>
+                    <div id="dropZone" class="drop-zone">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <p>Arraste um arquivo CSV aqui</p>
+                        <p class="drop-zone-small">ou</p>
+                        <input type="file" id="importFile" accept=".csv" style="display:none;">
+                        <button type="button" class="btn-secondary" onclick="document.getElementById('importFile').click()">Selecione o arquivo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
