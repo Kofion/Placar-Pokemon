@@ -22,7 +22,7 @@
             <h2 id="studentFormTitle">Cadastrar Aluno</h2>
             <form id="studentForm">
                 <input type="text" id="studentName" placeholder="Nome do Aluno" maxlength="50" required>
-                <input type="text" id="studentReg" placeholder="Matrícula (7 dígitos)" pattern="\d{7}" maxlength="7" required>
+                <input type="text" id="studentReg" placeholder="Matrícula (7 dígitos)" pattern="\d{7}" inputmode="numeric" maxlength="7" oninput="this.value = this.value.replace(/\D/g, '')" required>
                 <select id="studentPokemon" required>
                     <option value="">Escolher Pokémon</option>
                     <option value="bulbasaur">Bulbasaur</option>

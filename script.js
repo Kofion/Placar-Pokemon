@@ -46,9 +46,7 @@ function renderStudents() {
             <div class="student-activities">
                 ${activities.map(activity => {
                     const safeName = activity.name.replace(/"/g, '&quot;');
-                    const displayName = activity.name.length > 20
-                        ? `${activity.name.slice(0, 20).trimEnd()}...`
-                        : activity.name;
+                    const displayName = activity.name;
 
                     return `
                     <div class="grade-item">
@@ -116,9 +114,7 @@ function renderActivities() {
     activities.forEach(activity => {
         const div = document.createElement('div');
         const safeName = activity.name.replace(/"/g, '&quot;');
-        const displayName = activity.name.length > 20
-            ? `${activity.name.slice(0, 20).trimEnd()}...`
-            : activity.name;
+        const displayName = activity.name;
 
         div.className = 'activity-item';
         div.innerHTML = `

@@ -363,7 +363,7 @@ button:active {
 }
 
 .grade-label {
-    display: block;
+    display: -webkit-box;
     font-size: 0.85rem;
     margin-bottom: 6px;
     font-weight: 700;
@@ -372,7 +372,12 @@ button:active {
     letter-spacing: 0.3px;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.25;
+    min-height: 2.1em;
 }
 
 .grade-item input {
@@ -597,11 +602,16 @@ button:active {
 }
 
 .activity-name {
-    display: block;
+    display: -webkit-box;
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.3;
+    min-height: 2.6em;
     font-weight: 700;
     color: var(--secondary-dark);
 }
