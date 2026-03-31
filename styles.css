@@ -76,6 +76,8 @@ body {
     padding: 10px 16px;
     transition: all 0.3s ease;
     background: rgba(255, 255, 255, 0.1);
+    text-align: center;
+    white-space: nowrap;
 }
 
 .navbar a:hover {
@@ -113,6 +115,13 @@ h3 {
     font-size: 1.1rem;
     margin-bottom: 12px;
     font-weight: 700;
+}
+
+.section-note {
+    margin: -4px 0 14px;
+    font-size: 0.95rem;
+    color: var(--warning-dark);
+    font-weight: 600;
 }
 
 /* ========== SECTIONS ========== */
@@ -337,8 +346,7 @@ button:active {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
     gap: 10px;
-    grid-column: 1;
-    order: -1;
+    grid-column: 1 / -1;
 }
 
 .grade-item {
@@ -362,6 +370,9 @@ button:active {
     color: var(--secondary-dark);
     text-transform: uppercase;
     letter-spacing: 0.3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .grade-item input {
@@ -380,6 +391,7 @@ button:active {
     align-items: center;
     justify-content: center;
     height: 100%;
+    grid-column: 3;
 }
 
 .student-total {
@@ -447,17 +459,28 @@ button:active {
 
 @media (max-width: 768px) {
     body {
-        padding: 120px 16px 16px;
+        padding: 0 16px 16px;
     }
 
     .navbar {
+        position: sticky;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
         padding: 12px;
+        margin: 0 -16px 16px;
     }
 
     .navbar a {
+        width: 100%;
+        min-width: 0;
         font-size: 0.85rem;
-        padding: 8px 12px;
+        padding: 10px 12px;
+    }
+
+    h1 {
+        font-size: 2.3rem;
+        margin-bottom: 24px;
     }
 
     .student {
@@ -482,6 +505,15 @@ button:active {
 }
 
 @media (max-width: 576px) {
+    body {
+        padding: 0 12px 12px;
+    }
+
+    .navbar {
+        grid-template-columns: 1fr;
+        margin: 0 -12px 14px;
+    }
+
     .container {
         padding: 8px 12px 20px;
     }
@@ -523,8 +555,12 @@ button:active {
     transition: all 0.3s ease;
 }
 
-#students-section .student:hover,
-#activities-section .activity-item:hover {
+#students-section .student:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+#activities-section .activity-item:hover .activity-card {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.08);
 }
@@ -532,31 +568,54 @@ button:active {
 /* ========== ACTIVITIES SECTION ========== */
 .activity-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
 }
 
 .activity-item {
-    border: 2px solid var(--border-color);    background: linear-gradient(135deg, #fafbf9, #f9f8f7);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding-bottom: 6px;
+}
+
+.activity-card {
+    border: 2px solid var(--border-color);
+    background: linear-gradient(135deg, #fafbf9, #f9f8f7);
     border-radius: 10px;
     padding: 14px;
+    min-height: 72px;
     display: flex;
     align-items: center;
-    gap: 12px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.activity-item:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+.activity-item:hover .activity-card {
     border-color: var(--primary-green);
 }
 
-.activity-item span {
-    flex: 1;
+.activity-name {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-weight: 700;
     color: var(--secondary-dark);
+}
+
+.activity-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 6px;
+}
+
+.activity-actions .small-btn {
+    min-width: 86px;
 }
 
 /* ========== BUTTONS - SMALL ========== */

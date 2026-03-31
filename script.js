@@ -26,10 +26,12 @@ function renderStudents() {
     const list = document.getElementById('studentsList');
     list.innerHTML = '';
     const filter = studentSearchValue.trim().toLowerCase();
-    const filtered = students.filter(student => {
-        if (!filter) return true;
-        return student.name.toLowerCase().includes(filter) || student.reg.includes(filter);
-    });
+    const filtered = students
+        .filter(student => {
+            if (!filter) return true;
+            return student.name.toLowerCase().includes(filter) || student.reg.includes(filter);
+        })
+        .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { sensitivity: 'base' }));
 
     filtered.forEach(student => {
         const totalGrade = getTotalGrade(student.id);
@@ -42,12 +44,19 @@ function renderStudents() {
                 <button class="small-btn" onclick="startEditStudent(${student.id})">Editar</button>                <button class=\"small-btn delete-btn\" onclick=\"deleteStudent(${student.id})\">Excluir</button>            </div>
             <img src="images/${evolution}.png" alt="${evolution}" class="pokemon-img" id="img-${student.id}">
             <div class="student-activities">
-                ${activities.map(activity => `
+                ${activities.map(activity => {
+                    const safeName = activity.name.replace(/"/g, '&quot;');
+                    const displayName = activity.name.length > 20
+                        ? `${activity.name.slice(0, 20).trimEnd()}...`
+                        : activity.name;
+
+                    return `
                     <div class="grade-item">
-                        <span class="grade-label">${activity.name}</span>
+                        <span class="grade-label" title="${safeName}">${displayName}</span>
                         <input type="number" min="0" max="100" value="${getGrade(student.id, activity.id) || ''}" onchange="updateGrade(${student.id}, ${activity.id}, this.value)">
                     </div>
-                `).join('')}
+                `;
+                }).join('')}
             </div>
             <div class="student-total-wrap">
                 <p class="student-total">Total: ${totalGrade}</p>
@@ -106,11 +115,20 @@ function renderActivities() {
     list.className = 'scrollable-list activity-grid';
     activities.forEach(activity => {
         const div = document.createElement('div');
+        const safeName = activity.name.replace(/"/g, '&quot;');
+        const displayName = activity.name.length > 20
+            ? `${activity.name.slice(0, 20).trimEnd()}...`
+            : activity.name;
+
         div.className = 'activity-item';
         div.innerHTML = `
-            <span>${activity.name}</span>
-            <button class="small-btn" onclick="editActivity(${activity.id})">Editar</button>
-            <button class="small-btn" onclick="deleteActivity(${activity.id})">Excluir</button>
+            <div class="activity-card">
+                <span class="activity-name" title="${safeName}">${displayName}</span>
+            </div>
+            <div class="activity-actions">
+                <button class="small-btn" onclick="editActivity(${activity.id})">Editar</button>
+                <button class="small-btn delete-btn" onclick="deleteActivity(${activity.id})">Excluir</button>
+            </div>
         `;
         list.appendChild(div);
     });
